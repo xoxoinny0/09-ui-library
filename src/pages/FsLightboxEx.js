@@ -34,6 +34,17 @@ const FsLightboxEx = memo(() => {
     open: false,
     index: 1
   });
+
+  // 단일 Youtube 영상을 사용할 경우 모달창 표시 여부에 대한 상태값
+  const [youtubeToggler, setYoutubeToggler] = useState(false);
+  
+  // 복수 Youtube 영사을 사용할 경우 모달창 표시 여부와 몇 번째 영상을 표시할지에 대한 상태값
+  const [youtubeMultiToggler, setYoutubeMultiToggler] = useState({
+    open: false,
+    index: 1
+  });
+
+
   return (
     
     <div>
@@ -64,7 +75,33 @@ const FsLightboxEx = memo(() => {
         <FsLightbox toggler={multiToggler.open} sources={[img1, img2, img3, img4, img5]} slide={multiToggler.index} />
       </div>
 
+      <h3>Youtube Single link</h3>
+      <div>
+        <Button onClick={e => setYoutubeToggler(!youtubeToggler)}>
+          <img src="http://img.youtube.com/vi/0gL_0dxiZjA.maxresdefault.jpg" alt="img1" width='150' />
+        </Button>
+        <FsLightbox toggler={youtubeToggler} sources={[
+          'https://www.youtube.com/watch?v=0gL_0dxiZjA'
+        ]} />
+      </div>
 
+      <h3>Youtube Multi link</h3>
+      <div>
+        <Button onClick={e => setYoutubeMultiToggler({open: !youtubeMultiToggler.open, index: 1})}>
+          <img src="http://img.youtube.com/vi/0gL_0dxiZjA.maxresdefault.jpg" alt="img1" width='150' />
+        </Button>
+        <Button onClick={e => setYoutubeMultiToggler({open: !youtubeMultiToggler.open, index: 2})}>
+          <img src="http://img.youtube.com/vi/XpLZQErkvK8.maxresdefault.jpg" alt="img1" width='150' />
+        </Button>
+        <Button onClick={e => setYoutubeMultiToggler({open: !youtubeMultiToggler.open, index: 3})}>
+          <img src="http://img.youtube.com/vi/z3QPZrsA9Nk.maxresdefault.jpg" alt="img1" width='150' />
+        </Button>
+        <FsLightbox toggler={youtubeMultiToggler.open} sources={[
+          'https://www.youtube.com/watch?v=0gL_0dxiZjA',
+          'https://www.youtube.com/watch?v=XpLZQErkvK8',
+          'https://www.youtube.com/watch?v=z3QPZrsA9Nk'
+        ]} slide={youtubeMultiToggler.index} />
+      </div>
     </div>
   )
 });
